@@ -2,6 +2,7 @@ DataVis
 =======
 
 Data Visualization hosted on an AWS Node.js server using D3.js
+Make sure to install Node.js at http://nodejs.org/ prior to running the server.
 
 Installation and Usage
 =====
@@ -16,7 +17,9 @@ cd DataVis
 ifconfig
 ```	
 
+
 ##### Run the server using: 
 ```sh
 node server.js
 ```
+
