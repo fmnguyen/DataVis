@@ -2,7 +2,8 @@ DataVis
 =======
 
 Data Visualization hosted on an AWS Node.js server using D3.js
-</br>Make sure to install Node.js at http://nodejs.org/ prior to running the server.
+
+Make sure to install Node.js at http://nodejs.org/ prior to running the server.
 
 Installation and Usage
 =====
@@ -24,8 +25,11 @@ ifconfig
 node server.js
 ```
 
-If you are running Node on your own machine, you can access the visualization at: </br>
-localhost:1234/index.html </br>
-Otherwise it can be accessed at:</br>
+If you are running Node on your own machine, you can access the visualization at:
+
+localhost:1234/index.html
+
+Otherwise it can be accessed at:
+
 ip_address:1234/index.html
 
