@@ -24,8 +24,8 @@ ifconfig
 node server.js
 ```
 
-If you are running Node on your own machine, you can access the visualization at: /n 
-localhost:1234/index.html /n
-Otherwise it can be accessed at: /n
+If you are running Node on your own machine, you can access the visualization at: 
+localhost:1234/index.html 
+Otherwise it can be accessed at:
 ip_address:1234/index.html
 
