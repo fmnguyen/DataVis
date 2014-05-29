@@ -14,22 +14,18 @@ Installation and Usage
 git clone [git-repo-url] DataVis
 cd DataVis
 ```
-
 ##### If you are letting others connect to your server, note your ip:
 ```sh
 ifconfig
 ```
-
 ##### Run the server using: 
 ```sh
 node server.js
 ```
-
 ##### If you are running Node on your own machine, you can access the visualization at:
 ```
   localhost:1234/index.html
 ```
-
 ##### Otherwise it can be accessed at:
 ```
   ip_address:1234/index.html
