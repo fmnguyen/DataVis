@@ -1,0 +1,19 @@
+#test {
+    color: blue;
+}
+
+div {
+   font-family: "Helvetica Neue", Helvetica;
+   color: gray;
+   font-weight: 100;
+   font-size: 35px;
+}
+
+.chart div {
+  font-size: 15px;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}

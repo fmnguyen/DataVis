@@ -1,0 +1,72 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>nodechat</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- override stylesheet -->
+    <link rel="stylesheet" href="newstyles/main.css">
+</head>
+<body>
+        <!--[if lt IE 10]>
+            <p class="`">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+            <![endif]-->
+            <div class="header">
+                <ul class="nav pull-right">
+                    <li class="active"><a href="#">Your Username</a>
+                    </ul>
+                    <h1 class="text-muted">NODECHAT</h3>
+                    </div>
+
+                    <div class="container">
+
+                        <div class="row">
+                            <div id="chat-log" class="col-md-8 col">
+                                <h4>Room name</h4>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                <input id="message-box" type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4 col">
+                                <div class="row right-row">
+                                    <div class="col-md-4">
+                                        <h4>Rooms</h4>
+                                    </div>
+                                </div>
+                                <div class="row right-row">
+                                    <div class="col-md-4">
+                                        <h4>Room members</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+                    <script>
+                    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+                        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+                    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+                    e.src='//www.google-analytics.com/analytics.js';
+                    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+                    ga('create','UA-XXXXX-X');ga('send','pageview');
+                    </script>
+
+                    <!-- build:js scripts/plugins.js -->
+                    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+                    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+                    <script type="text/javascript" src="script/newscript.js"></script>
+                    <script src="/socket.io/socket.io.js"></script>
+                </body>
+                </html>

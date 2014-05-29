@@ -1,0 +1,54 @@
+/*
+
+Kinds of exports:
+
+just a function
+    (module)
+        module.exports = function () { return true; };
+    (client)
+        var myModule = require('./myModule');
+        console.log(myModule()); // >> true
+
+just an object
+    (module)
+        module.exports = { key1: 'value1', key2: 'value2' };
+    (client)
+        var myModule = require('./myModule');
+        console.log(myModule.key1); // >> 'value1'
+
+a javascript "class" so client can make instances later
+    (module)
+        function Thing() {
+            this.exampleProperty = 'stuff';
+        }
+        Thing.prototype.exampleMethod = function () {};
+        module.exports = Thing;
+    (client)
+        var MyModule = require('./MyModule');
+        var myModule1 = new MyModule();
+        var myModule2 = new MyModule();
+        myModule1.exampleProperty = 'banana';
+        console.log(myModule1.exampleProperty); // >> 'banana'
+        console.log(myModule2.exampleProperty); // >> 'stuff'
+
+a javascript "module" with public and private things
+        - similar functionality to the vanilla JS Revealing Module Pattern
+        - original pattern @ http://christianheilmann.com/2007/08/22/again-with-the-module-pattern-reveal-something-to-the-world/
+        - many patterns @ http://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript
+    (module)
+        var publicProperty = 'waffles';
+        var privateProperty = 'spaghetti';
+        function publicMethod() { return 'apple'; }
+        function privateMethod() { return 'orange'; }
+        module.exports = {
+            publicProperty: publicProperty,
+            publicMethod: publicMethod
+        };
+    (client)
+        var myModule = require('./myModule');
+        console.log(myModule.publicProperty); // >> 'waffles'
+        console.log(myModule.privateProperty); // >> undefined
+        console.log(myModule.publicMethod()); // >> 'apple'
+        console.log(myModule.privateMethod()); // >> TypeError: undefined is not a function
+
+*/
