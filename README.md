@@ -1,7 +1,10 @@
 DataVis
 =======
 
-Data Visualization hosted on an AWS Node.js server using D3.js
+Data Visualization hosted on an AWS Node.js server using D3.js, the demonstration can be found at :
+```
+ec2-54-184-119-201.us-west-2.compute.amazonaws.com
+```
 
 Make sure to install Node.js at http://nodejs.org/ prior to running the server.
 
