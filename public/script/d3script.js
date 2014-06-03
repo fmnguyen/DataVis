@@ -152,9 +152,6 @@ function update() {
 		        .style("font-weight", "100")
 		        .style("font-family", "Helvetica Neue")
 		        .text("Cambodia: Rural Population vs Years Graph");
-		chart.selectAll(".newbar")
-				.attr("opacity", "0,4")
-				.attr("fill", function(d) { count+=2; return "rgb(53, 214, " + ((90 + 3 * count) % 255) + ")"});
 
 		// update bars
 		var sel = chart.selectAll(".bar").data(data);
@@ -175,8 +172,6 @@ function update() {
 		//sel.exit().remove();
 	})
 }
-
-
 
 function type(d) {
 		d.rural = +d.rural;
