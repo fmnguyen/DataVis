@@ -1,4 +1,4 @@
-var margin = {top: 20, right: 30, bottom: 30, left: 40},
+var margin = {top: 20, right: 30, bottom: 30, left: 50},
 	width = 800 - margin.left - margin.right,
 	height = 500 - margin.top - margin.bottom;
 
@@ -96,8 +96,9 @@ d3.csv("../data/argentina.csv", type, function(error, data) {
 				.append("text")
 			.attr("transform", "rotate(-90)")
 			.attr("y", 15)
-			.attr("dy", "-3.8em")
+			.attr("dy", "-4.5em")
 			.style("text-anchor", "end")
+			.style("font-size", "12px")
 			.text("Rural Population (% of Total Population)");
 		
 		//createTags(data);
@@ -108,6 +109,8 @@ function update() {
 	d3.csv("../data/cambodia.csv", type, function(error, data) {
 	  	//y.domain([d3.min(data, function(d) { return d.rural;}) - 10
 	  	//	, 5 + d3.max(data, function(d) { return d.rural; })]);
+
+		chart.select(".y").remove()
 
 	  	chart.append("g")
 	    	.attr("class", "x axis")
@@ -120,8 +123,9 @@ function update() {
 		    .append("text")
 		    	.attr("transform", "rotate(-90)")
 		    	.attr("y", 15)
-		    	.attr("dy", "-3.8em")
+		    	.attr("dy", "-4.5em")
 		    	.style("text-anchor", "end")
+				.style("font-size", "12px")
 		    	.text("Rural Population (% of Total Population)");
 
 	  	chart.selectAll(".bar")
@@ -140,11 +144,6 @@ function update() {
 			.call(xAxis);
 		chart.select(".x")
 			.attr("transform", "translate(30," + height + ")");
-
-		chart.select(".y")
-			.remove()
-			.attr("transform", "translate(0,0)")
-			.call(yAxis);
   		
   		// Add title to graph
   		chart.append("g")
