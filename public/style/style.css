@@ -1,16 +1,28 @@
 svg {
    font-family: "Helvetica Neue", Helvetica;
    color: gray;
-   font-weight: 100;
+   font-weight: 400;
    font-size: 35px;
 }
 
-.chart rect {
-  fill: steelblue;
+.chart text {
+  text-anchor: end;
 }
 
-.chart text {
-  fill: white;
-  font: 10px sans-serif;
-  text-anchor: end;
+.axis {
+  font: 25px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+text {
+	font-family: "Helvetica Neue", Helvetica;
+	color: white;
+	font-weight: 150;
+	font-size: 10px;
 }

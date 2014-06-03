@@ -1,9 +1,25 @@
 window.onload = function() {
-	var width = 900,
-		height = 500;
+
+	var margin = {top: 20, right: 30, bottom: 30, left: 40},
+    	width = 800 - margin.left - margin.right,
+    	height = 500 - margin.top - margin.bottom;
+
+	var x = d3.scale.linear()
+		.domain([1994, 2012])
+		.range([0, width]);
 
 	var y = d3.scale.linear()
+		.domain([0,15])
 	    .range([height, 0]);
+
+	var xaxis = d3.svg.axis()
+		.scale(x)
+		.orient("bottom")
+		.ticks(19);
+
+	var yaxis = d3.svg.axis()
+		.scale(y)
+		.orient("left");
 
 	d3.select("body")
 		.append("svg")
@@ -14,33 +30,57 @@ window.onload = function() {
 		.attr("class", "country");
 
 	var chart = d3.select(".chart")
-					.attr("width", width)
-					.attr("height", height);
+    				.attr("width", width + 30 + margin.left + margin.right)
+    				.attr("height", height + margin.top + margin.bottom)
+  					.append("g")
+    				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	d3.csv("../data/argentina.csv", type, function(error, data) {
 		if(error) 
 			console.log(error)
 		else {
 			console.log(data)
-			y.domain([0, d3.max(data, function(d) { return Math.round(Math.round(d.rural * 100) / 100 * 100) / 100; })]);
-			var barWidth = width / data.length;
+			//y.domain([0, d3.max(data, function(d) { return Math.round(d.rural * 100) / 100; })]);
 
-			var bar = chart.selectAll("g")
+			chart.append("g")
+     				.attr("class", "x axis")
+      				.attr("transform", "translate(30," + height + ")")
+      				.call(xaxis);
+
+      		chart.append("g")
+      				.attr("class", "y axis")
+     				.call(yaxis);
+
+			chart.append("g")
+    			.attr("class", "y axis")
+    			.call(yaxis)
+ 				.append("text")
+    			.attr("transform", "rotate(-90)")
+    			.attr("y", 15)
+    			.attr("dy", "-4.5em")
+    			.style("text-anchor", "end")
+    			.text("Rural Population (% of Total Population)");
+
+    		var count = 1;
+			var bar = chart.selectAll(".bar")
       						.data(data)
-   							.enter().append("g")
-       						.attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)" ; });
-
-			bar.append("rect")
-				.attr("y", function(d){return y(Math.round(d.rural * 100) / 100)})
-			    .attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100) })
-			    .attr("width", barWidth - 1);
+   							.enter().append("rect")
+   							.attr("class", "bar")
+						    .attr("x", function(d) { return x(d.year) + 18; })
+						    .attr("y", function(d) { return y(Math.round(d.rural * 100) / 100); })
+						    .attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
+						    .attr("width", 25)
+						    .attr("transform", "translate(0, -0.55)")
+						    .attr("fill", function(d) { count+=2; return "rgb(53, 214, " + ((90 + 3 * count) % 255) + ")"});
 
 			bar.append("text")
 			    .attr("y", function(d) { return y(Math.round(d.rural * 100) / 100) + 3; })
-			    .attr("x", barWidth / 1.4)
+			    .attr("x", 20 / 1.4)
 			    .attr("dy", "1em")
-			    .text(function(d) { return Math.round(d.rural * 100) / 100; });
+			    .text(function(d) { return Math.round(d.rural * 100) / 100; })
+			    .attr("fill", "white");
 			
+
 			//createTags(data);
 		}		
 	});
