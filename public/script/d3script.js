@@ -9,13 +9,14 @@ window.onload = function() {
 		.range([0, width]);
 
 	var y = d3.scale.linear()
-		.domain([0,15])
+		.domain([0,14])
 	    .range([height, 0]);
 
 	var xaxis = d3.svg.axis()
 		.scale(x)
 		.orient("bottom")
-		.ticks(19);
+		.ticks(19)
+		.tickFormat(d3.format("d"));
 
 	var yaxis = d3.svg.axis()
 		.scale(y)
@@ -49,7 +50,15 @@ window.onload = function() {
 
       		chart.append("g")
       				.attr("class", "y axis")
-     				.call(yaxis);
+     				.call(yaxis)
+     				.append("text")
+     				.attr("x", 1100/2)             
+			        .attr("y", (height /  15))
+			        .attr("text-anchor", "middle")  
+			        .style("font-size", "26px") 
+			        .style("font-weight", "100")
+			        .style("font-family", "Helvetica Neue")
+			        .text("Rural Population vs Years Graph");
 
 			chart.append("g")
     			.attr("class", "y axis")
@@ -57,7 +66,7 @@ window.onload = function() {
  				.append("text")
     			.attr("transform", "rotate(-90)")
     			.attr("y", 15)
-    			.attr("dy", "-4.5em")
+    			.attr("dy", "-3.8em")
     			.style("text-anchor", "end")
     			.text("Rural Population (% of Total Population)");
 
@@ -78,7 +87,7 @@ window.onload = function() {
 			    .attr("x", 20 / 1.4)
 			    .attr("dy", "1em")
 			    .text(function(d) { return Math.round(d.rural * 100) / 100; })
-			    .attr("fill", "white");
+			    .style("color", "black");
 			
 
 			//createTags(data);
@@ -92,7 +101,6 @@ window.onload = function() {
 
 
 }
-
 
 function createTags(data) {
 	console.log(data)

@@ -3,6 +3,8 @@ svg {
    color: gray;
    font-weight: 400;
    font-size: 35px;
+   margin-left: 30px;
+   margin-top: 20px;
 }
 
 .chart text {
@@ -22,7 +24,7 @@ svg {
 
 text {
 	font-family: "Helvetica Neue", Helvetica;
-	color: white;
-	font-weight: 150;
-	font-size: 10px;
+	color: black;
+	font-weight: 100;
+	font-size: 12px;
 }
