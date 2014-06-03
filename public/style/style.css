@@ -42,3 +42,7 @@ text {
 .bar text {
 	color:black;
 }
+
+.title {
+	padding-bottom: 20px;
+}
