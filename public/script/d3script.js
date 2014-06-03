@@ -7,7 +7,7 @@ var x = d3.scale.linear()
 	.range([0, width]);
 
 var y = d3.scale.linear()
-	.domain([0,120])
+	.domain([0,20])
     .range([height, 0]);
 
 var xAxis = d3.svg.axis()
@@ -97,11 +97,13 @@ function update() {
 	var country;
 	var path = "../data/" + country + ".csv";
 	d3.csv("../data/cambodia.csv", type, function(error, data) {
-	  	//y.domain([d3.min(data, function(d) { return d.rural;}) - 10
-	  	//	, 5 + d3.max(data, function(d) { return d.rural; })]);
+		chart.select(".y").remove();
+
+	  	y.domain([60
+	  		, 7 + d3.max(data, function(d) { return d.rural; })]);
 		
 		chart.selectAll("rect")
-			.style("opacity", "0.4");
+			.style("opacity", "0.6");
 		
 		chart.select(".y").remove();
 
@@ -169,7 +171,7 @@ function update() {
 			.attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
 		
 		// remove bars no longer present
-		//sel.exit().remove();
+		sel.exit().remove();
 	})
 }
 
