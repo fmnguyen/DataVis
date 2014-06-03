@@ -26,9 +26,10 @@ window.onload = function() {
 		.append("svg")
 		.attr("class", "chart");
 
-	d3.select("body")
+	/*d3.select("body")
 		.append("svg")
 		.attr("class", "country");
+	*/
 
 	var chart = d3.select(".chart")
     				.attr("width", width + 30 + margin.left + margin.right)
@@ -99,6 +100,11 @@ window.onload = function() {
   		return d;
 	}
 
+	var footer = d3.select("body")
+					.append("div")
+					.attr("class", "footer")
+					.text("@author: Francis Nguyen")
+					.style("font-size", "8px");
 
 }
 
