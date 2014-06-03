@@ -43,6 +43,31 @@ window.onload = function() {
 		else {
 			console.log(data)
 			//y.domain([0, d3.max(data, function(d) { return Math.round(d.rural * 100) / 100; })]);
+    		
+    		var count = 1;
+			var bar = chart.selectAll("g")
+							.attr("class", "data")
+							.data(data)
+							.enter().append("g")
+						.selectAll(".bar")
+      						.data(data)
+   							.enter().append("rect")
+   							.attr("class", "bar")
+						    .attr("x", function(d) { return x(d.year) + 18; })
+						    .attr("y", function(d) { return y(Math.round(d.rural * 100) / 100); })
+						    .attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
+						    .attr("width", 25)
+						    .attr("transform", "translate(0, -0.55)")
+						    .attr("fill", function(d) { count+=2; return "rgb(53, 214, " + ((90 + 3 * count) % 255) + ")"});
+
+			bar.append("g")
+				.append("text")
+			    .attr("y", 5)
+			    .attr("x", 0)
+			    //.attr("dy", "1em")
+			    .text(function(d) { return Math.round(d.rural * 100) / 100; })
+			    .style("color", "black")
+			    .style("font-size", "16pt");
 
 			chart.append("g")
      				.attr("class", "x axis")
@@ -70,27 +95,7 @@ window.onload = function() {
     			.attr("dy", "-3.8em")
     			.style("text-anchor", "end")
     			.text("Rural Population (% of Total Population)");
-
-    		var count = 1;
-			var bar = chart.selectAll(".bar")
-      						.data(data)
-   							.enter().append("rect")
-   							.attr("class", "bar")
-						    .attr("x", function(d) { return x(d.year) + 18; })
-						    .attr("y", function(d) { return y(Math.round(d.rural * 100) / 100); })
-						    .attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
-						    .attr("width", 25)
-						    .attr("transform", "translate(0, -0.55)")
-						    .attr("fill", function(d) { count+=2; return "rgb(53, 214, " + ((90 + 3 * count) % 255) + ")"});
-
-			bar.append("text")
-			    .attr("y", function(d) { return y(Math.round(d.rural * 100) / 100) + 3; })
-			    .attr("x", 20 / 1.4)
-			    .attr("dy", "1em")
-			    .text(function(d) { return Math.round(d.rural * 100) / 100; })
-			    .style("color", "black");
 			
-
 			//createTags(data);
 		}		
 	});
