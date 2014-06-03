@@ -25,7 +25,6 @@ d3.select("body")
 	.append("svg")
 	.attr("class", "chart");
 
-
 /*d3.select("body")
 	.append("svg")
 	.attr("class", "country");
@@ -51,24 +50,15 @@ d3.csv("../data/argentina.csv", type, function(error, data) {
 						.enter().append("g")
 					.selectAll(".bar")
   						.data(data)
-							.enter().append("rect")
-							.attr("class", "bar")
+  						.style("opacity", "0.2")
+					.enter().append("rect")
+						.attr("class", "bar")
 					    .attr("x", function(d) { return x(d.year) + 18; })
 					    .attr("y", function(d) { return y(Math.round(d.rural * 100) / 100); })
 					    .attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
 					    .attr("width", 25)
 					    .attr("transform", "translate(0, -0.55)")
-					    .style("opacity", "0.75")
 					    .attr("fill", function(d) { count+=2; return "rgb(53, 214, " + ((90 + 3 * count) % 255) + ")"});
-
-		bar.append("g")
-			.append("text")
-		    .attr("y", 5)
-		    .attr("x", 0)
-		    //.attr("dy", "1em")
-		    .text(function(d) { return Math.round(d.rural * 100) / 100; })
-		    .style("color", "black")
-		    .style("font-size", "16pt");
 
 		chart.append("g")
  				.attr("class", "x axis")
@@ -100,17 +90,20 @@ d3.csv("../data/argentina.csv", type, function(error, data) {
 			.style("text-anchor", "end")
 			.style("font-size", "12px")
 			.text("Rural Population (% of Total Population)");
-		
-		//createTags(data);
 	}		
 });
 
 function update() {
+	var country;
+	var path = "../data/" + country + ".csv";
 	d3.csv("../data/cambodia.csv", type, function(error, data) {
 	  	//y.domain([d3.min(data, function(d) { return d.rural;}) - 10
 	  	//	, 5 + d3.max(data, function(d) { return d.rural; })]);
-
-		chart.select(".y").remove()
+		
+		chart.selectAll("rect")
+			.style("opacity", "0.4");
+		
+		chart.select(".y").remove();
 
 	  	chart.append("g")
 	    	.attr("class", "x axis")
@@ -131,17 +124,18 @@ function update() {
 	  	chart.selectAll(".bar")
 	      .data(data)
 	    .enter().append("rect")
-			.attr("class", "bar")
+			.attr("class", "newbar")
 			.attr("x", function(d) { return x(d.year) + 18; })
 			.attr("width", 25)
 			.attr("y", function(d) { return y(Math.round(d.rural * 100) / 100); })
-			.attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
+			.attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); });
 
 	    // update axes
 		chart.select(".x")
 			.remove()
 			.attr("transform", "translate(45," + height + ")")
 			.call(xAxis);
+
 		chart.select(".x")
 			.attr("transform", "translate(30," + height + ")");
   		
@@ -158,6 +152,9 @@ function update() {
 		        .style("font-weight", "100")
 		        .style("font-family", "Helvetica Neue")
 		        .text("Cambodia: Rural Population vs Years Graph");
+		chart.selectAll(".newbar")
+				.attr("opacity", "0,4")
+				.attr("fill", function(d) { count+=2; return "rgb(53, 214, " + ((90 + 3 * count) % 255) + ")"});
 
 		// update bars
 		var sel = chart.selectAll(".bar").data(data);
@@ -175,9 +172,11 @@ function update() {
 			.attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
 		
 		// remove bars no longer present
-		sel.exit().remove();
+		//sel.exit().remove();
 	})
 }
+
+
 
 function type(d) {
 		d.rural = +d.rural;
@@ -189,19 +188,5 @@ var footer = d3.select("body")
 				.attr("class", "footer")
 				.text("@author: Francis Nguyen")
 				.style("font-size", "8px");
-
-
-function createTags(data) {
-	console.log(data)
-	d3.select(".country")
-		.selectAll("div")
-		.data(data)
-		.enter()
-		.append("div")
-		.text(function(d){	
-			console.log(d); 
-			return d["Year"];	
-		});
-}
 
 
