@@ -38,8 +38,8 @@ text {
 	font-weight: 100;
 	font-size: 12px;	
 	position: relative;
-	top: 175px;
-	left: 10px;
+	top: 210px;
+	left: 67px;
 }
 
 .bar text {
@@ -58,12 +58,13 @@ select {
 
 .chart {
 	position: absolute;
-	left: 15px;
+	left: 75px;
+	top: 40px;
 }
 
 button {
 	position: absolute;
-	left: 890px;
-	top: 85px;
+	left: 1160px;
+	top: 125px;
 	font-family: "Helvetica Neue", Helvetica;
 }

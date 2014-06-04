@@ -1,5 +1,5 @@
 var margin = {top: 20, right: 30, bottom: 30, left: 50},
-	width = 800 - margin.left - margin.right,
+	width = 1000 - margin.left - margin.right,
 	height = 500 - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
@@ -25,20 +25,15 @@ d3.select("body")
 	.append("svg")
 	.attr("class", "chart");
 
-/*d3.select("body")
-	.append("svg")
-	.attr("class", "country");
-*/
-
 var chart = d3.select(".chart")
 				.attr("width", width + 30 + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom)
 					.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var norm = "argentina";
+var norm = "Cambodia";
 
-d3.csv("./data/" + norm + ".csv", type, function(error, data) {
+d3.csv("./data/" + norm.toLowerCase() + ".csv", type, function(error, data) {
 	if(error) 
 		console.log(error)
 	else {
@@ -55,10 +50,10 @@ d3.csv("./data/" + norm + ".csv", type, function(error, data) {
   						.style("opacity", "0.2")
 					.enter().append("rect")
 						.attr("class", "bar")
-					    .attr("x", function(d) { return x(d.year) + 18; })
+					    .attr("x", function(d) { return x(d.year) + 15; })
 					    .attr("y", function(d) { return y(Math.round(d.rural * 100) / 100); })
 					    .attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
-					    .attr("width", 25)
+					    .attr("width", 30)
 					    .attr("transform", "translate(0, -0.55)")
 					    .attr("fill", function(d) { count+=2; return "rgb(53, 214, " + ((90 + 3 * count) % 255) + ")"});
 
@@ -79,7 +74,7 @@ d3.csv("./data/" + norm + ".csv", type, function(error, data) {
 		        .style("font-size", "26px") 
 		        .style("font-weight", "100")
 		        .style("font-family", "Helvetica Neue")
-		        .text("Argentina: Rural Population Percentage vs Years");
+		        .text(norm + ": Rural Population Percentage vs Years");
 
 		// Append the metric title for y-axis
 		chart.append("g")
@@ -124,15 +119,6 @@ function update(country) {
 				.style("font-size", "12px")
 		    	.text("Rural Population (% of Total Population)");
 
-	  	chart.selectAll(".bar")
-	      .data(data)
-	    .enter().append("rect")
-			.attr("class", "newbar")
-			.attr("x", function(d) { return x(d.year) + 18; })
-			.attr("width", 25)
-			.attr("y", function(d) { return y(Math.round(d.rural * 100) / 100); })
-			.attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); });
-
 	    // update axes
 		chart.select(".x")
 			.remove()
@@ -167,8 +153,8 @@ function update(country) {
 		// update existing (and new) bars
 		sel.transition()
 			.duration(1000)
-			.attr("x", function(d) { return x(d.year) + 18; })
-			.attr("width", 25)
+			.attr("x", function(d) { return x(d.year) + 15; })
+			.attr("width", 30)
 			.attr("y", function(d) { return y(Math.round(d.rural * 100) / 100); })
 			.attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
 		
