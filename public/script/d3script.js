@@ -1,13 +1,13 @@
 var margin = {top: 20, right: 30, bottom: 30, left: 50},
-	width = 1000 - margin.left - margin.right,
-	height = 500 - margin.top - margin.bottom;
+	width = 600 - margin.left - margin.right,
+	height = 300 - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
 	.domain([1994, 2012])
 	.range([0, width]);
 
 var y = d3.scale.linear()
-	.domain([5,90])
+	.domain([0,100])
     .range([height, 0]);
 
 var xAxis = d3.svg.axis()
@@ -24,8 +24,17 @@ var yAxis = d3.svg.axis()
 d3.select("body")
 	.append("svg")
 	.attr("class", "chart");
+d3.select("body")
+	.append("svg")
+	.attr("class", "chart2");
 
-var chart = d3.select(".chart")
+var chart1 = d3.select(".chart")
+				.attr("width", width + 30 + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+					.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var chart2 = d3.select(".chart2")
 				.attr("width", width + 30 + margin.left + margin.right)
 				.attr("height", height + margin.top + margin.bottom)
 					.append("g")
@@ -41,43 +50,42 @@ d3.csv("./data/" + norm.toLowerCase() + ".csv", type, function(error, data) {
 		//y.domain([0, d3.max(data, function(d) { return Math.round(d.rural * 100) / 100; })]);
 		
 		var count = 1;
-		var bar = chart.selectAll("g")
+		var bar = chart1.selectAll("g")
 						.attr("class", "data")
 						.data(data)
 						.enter().append("g")
 					.selectAll(".bar")
   						.data(data)
-  						.style("opacity", "0.2")
 					.enter().append("rect")
 						.attr("class", "bar")
-					    .attr("x", function(d) { return x(d.year) + 15; })
+					    .attr("x", function(d) { return x(d.year) + 22; })
 					    .attr("y", function(d) { return y(Math.round(d.rural * 100) / 100); })
 					    .attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
-					    .attr("width", 30)
+					    .attr("width", 15)
 					    .attr("transform", "translate(0, -0.55)")
 					    .attr("fill", function(d) { count+=2; return "rgb(53, 214, " + ((90 + 3 * count) % 255) + ")"});
 
-		chart.append("g")
+		chart1.append("g")
  				.attr("class", "x axis")
   				.attr("transform", "translate(30," + height + ")")
   				.call(xAxis);
 
   		// Add title to graph
-  		chart.append("g")
+  		chart1.append("g")
   				.attr("class", "y axis")
  				.call(yAxis)
  				.append("text")
  				.attr("class", "title")
- 				.attr("x", 1100 / 1.45)             
+ 				.attr("x", width + 35)             
 		        .attr("y", (height /  60))
 		        .attr("text-anchor", "middle")  
-		        .style("font-size", "26px") 
+		        .style("font-size", "14px") 
 		        .style("font-weight", "100")
 		        .style("font-family", "Helvetica Neue")
 		        .text(norm + ": Rural Population Percentage vs Years");
 
 		// Append the metric title for y-axis
-		chart.append("g")
+		chart1.append("g")
 			.attr("class", "y axis")
 			.call(yAxis)
 				.append("text")
@@ -85,30 +93,80 @@ d3.csv("./data/" + norm.toLowerCase() + ".csv", type, function(error, data) {
 			.attr("y", 15)
 			.attr("dy", "-4.5em")
 			.style("text-anchor", "end")
-			.style("font-size", "12px")
+			.style("font-size", "10px")
 			.text("Rural Population (% of Total Population)");
+
+/***************************** BREAK BETWEEN CHARTS ****************************/
+
+		count = 1;
+		bar = chart2.selectAll("g")
+						.attr("class", "data")
+						.data(data)
+						.enter().append("g")
+					.selectAll(".bar")
+  						.data(data)
+					.enter().append("rect")
+						.attr("class", "bar")
+					    .attr("x", function(d) { return x(d.year) + 22; })
+					    .attr("y", function(d) { return y(Math.round(d.urban * 100) / 100); })
+					    .attr("height", function(d) { return height - y(Math.round(d.urban * 100) / 100); })
+					    .attr("width", 15)
+					    .attr("transform", "translate(0, -0.55)")
+					    .attr("fill", function(d) { count+=2; return "rgb(254, 185, " + ((90 + 3 * count) % 255) + ")"});
+
+		chart2.append("g")
+ 				.attr("class", "x axis")
+  				.attr("transform", "translate(30," + height + ")")
+  				.call(xAxis);
+
+  		// Add title to graph
+  		chart2.append("g")
+  				.attr("class", "y axis")
+ 				.call(yAxis)
+ 				.append("text")
+ 				.attr("class", "title")
+ 				.attr("x", width + 35)             
+		        .attr("y", (height /  60))
+		        .attr("text-anchor", "middle")  
+		        .style("font-size", "14px") 
+		        .style("font-weight", "100")
+		        .style("font-family", "Helvetica Neue")
+		        .text(norm + ": Urban Population Percentage vs Years");
+
+		// Append the metric title for y-axis
+		chart2.append("g")
+			.attr("class", "y axis")
+			.call(yAxis)
+				.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", 15)
+			.attr("dy", "-4.5em")
+			.style("text-anchor", "end")
+			.style("font-size", "10px")
+			.text("Urban Population (% of Total Population)");
+
 	}		
 });
 
 function update(country) {
 	var path = "../data/" + country.toLowerCase() + ".csv";
 	d3.csv(path, type, function(error, data) {
-		chart.select(".y").remove();
+		chart1.select(".y").remove();
 
 	  	//y.domain([d3.min(data, function(d) {return d.rural;}), 
 	  	//		d3.max(data, function(d) {return d.rural;})]);
 		
-		chart.selectAll("rect")
-			.style("opacity", "0.7");
+		chart1.selectAll("rect")
+			.style("opacity", "0.8");
 		
-		chart.select(".y").remove();
+		chart1.select(".y").remove();
 
-	  	chart.append("g")
+	  	chart1.append("g")
 	    	.attr("class", "x axis")
 	    	.attr("transform", "translate(0," + height + ")")
 	    	.call(xAxis);
 
-	 	 chart.append("g")
+	 	 chart1.append("g")
 		    	.attr("class", "y axis")
 		    	.call(yAxis)
 		    .append("text")
@@ -116,35 +174,35 @@ function update(country) {
 		    	.attr("y", 15)
 		    	.attr("dy", "-4.5em")
 		    	.style("text-anchor", "end")
-				.style("font-size", "12px")
+				.style("font-size", "10px")
 		    	.text("Rural Population (% of Total Population)");
 
 	    // update axes
-		chart.select(".x")
+		chart1.select(".x")
 			.remove()
 			.attr("transform", "translate(45," + height + ")")
 			.call(xAxis);
 
-		chart.select(".x")
+		chart1.select(".x")
 			.attr("transform", "translate(30," + height + ")");
   		
   		// Add title to graph
-  		chart.append("g")
+  		chart1.append("g")
   				.attr("class", "y axis")
  				.call(yAxis)
  				.append("text")
  				.attr("class", "title")
- 				.attr("x", 1100 / 1.45)             
+ 				.attr("x", width + 35)             
 		        .attr("y", (height /  60))
 		        .attr("text-anchor", "middle")  
-		        .style("font-size", "26px") 
+		        .style("font-size", "14px") 
 		        .style("font-weight", "100")
 		        .style("font-family", "Helvetica Neue")
 		        .text(country.charAt(0).toUpperCase() + country.slice(1) 
 		        	+ ": Rural Population Percentage vs Years");
 
 		// update bars
-		var sel = chart.selectAll(".bar").data(data);
+		var sel = chart1.selectAll(".bar").data(data);
 
 		// add new bars
 		sel.enter().append("rect")
@@ -153,10 +211,77 @@ function update(country) {
 		// update existing (and new) bars
 		sel.transition()
 			.duration(1000)
-			.attr("x", function(d) { return x(d.year) + 15; })
-			.attr("width", 30)
+			.attr("x", function(d) { return x(d.year) + 22; })
+			.attr("width", 15)
 			.attr("y", function(d) { return y(Math.round(d.rural * 100) / 100); })
 			.attr("height", function(d) { return height - y(Math.round(d.rural * 100) / 100); })
+		
+		// remove bars no longer present
+		sel.exit().remove();
+
+/***************************** BREAK BETWEEN CHARTS ****************************/
+
+		chart2.select(".y").remove();
+
+		chart2.selectAll("rect")
+			.style("opacity", "0.8");
+
+		chart2.select(".y").remove();
+
+	  	chart2.append("g")
+	    	.attr("class", "x axis")
+	    	.attr("transform", "translate(0," + height + ")")
+	    	.call(xAxis);
+
+	 	 chart2.append("g")
+		    	.attr("class", "y axis")
+		    	.call(yAxis)
+		    .append("text")
+		    	.attr("transform", "rotate(-90)")
+		    	.attr("y", 15)
+		    	.attr("dy", "-4.5em")
+		    	.style("text-anchor", "end")
+				.style("font-size", "10px")
+		    	.text("Rural Population (% of Total Population)");
+
+	    // update axes
+		chart2.select(".x")
+			.remove()
+			.attr("transform", "translate(45," + height + ")")
+			.call(xAxis);
+
+		chart2.select(".x")
+			.attr("transform", "translate(30," + height + ")");
+  		
+  		// Add title to graph
+  		chart2.append("g")
+  				.attr("class", "y axis")
+ 				.call(yAxis)
+ 				.append("text")
+ 				.attr("class", "title")
+ 				.attr("x", width + 35)             
+		        .attr("y", (height /  60))
+		        .attr("text-anchor", "middle")  
+		        .style("font-size", "14px") 
+		        .style("font-weight", "100")
+		        .style("font-family", "Helvetica Neue")
+		        .text(country.charAt(0).toUpperCase() + country.slice(1) 
+		        	+ ": Rural Population Percentage vs Years");
+
+		// update bars
+		var sel = chart2.selectAll(".bar").data(data);
+
+		// add new bars
+		sel.enter().append("rect")
+			.attr("class", "bar");
+
+		// update existing (and new) bars
+		sel.transition()
+			.duration(1000)
+			.attr("x", function(d) { return x(d.year) + 22; })
+			.attr("width", 15)
+			.attr("y", function(d) { return y(Math.round(d.urban * 100) / 100); })
+			.attr("height", function(d) { return height - y(Math.round(d.urban * 100) / 100); })
 		
 		// remove bars no longer present
 		sel.exit().remove();
@@ -165,6 +290,7 @@ function update(country) {
 
 function type(d) {
 		d.rural = +d.rural;
+		d.urban = +d.urban;
 		return d;
 }
 
@@ -178,6 +304,54 @@ var footer = d3.select("body")
 				.append("div")
 				.attr("class", "footer")
 				.text("@author: Francis Nguyen")
-				.style("font-size", "8px");
+				.style("font-size", "6px");
+
+
+/********************************/
+/* World Map Visualization Code */
+/********************************/
+
+window.onload = function(){
+
+	var container = document.getElementById("map");
+	container.style.width = window.innerWidth / 2;
+	container.style.height = window.innerHeight / 1.2;
+
+	var map = new Datamap({
+		element: document.getElementById("map"),
+		projection: 'mercator',
+		dataUrl: "../data/cambodia.csv",
+		fills: {
+            HIGH: 'rgb(140, 182, 173)',
+            LOW: 'rgb(181, 207, 137)',
+            MEDIUM: 'rgb(166, 198, 150)',
+            UNKNOWN: 'rgb(245,245,245)',
+            defaultFill: 'rgb(119, 170, 191)'
+        },
+        data: {
+            IRL: {
+                fillKey: 'LOW',
+                numberOfThings: 2002
+            },
+            USA: {
+                fillKey: 'MEDIUM',
+                numberOfThings: 10381
+            }
+        }
+	});
+
+	map.legend();
+}
+
+
+
+
+
+
+
+
+
+
+
 
 

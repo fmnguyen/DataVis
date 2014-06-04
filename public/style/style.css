@@ -1,18 +1,5 @@
-svg {
-   font-family: "Helvetica Neue", Helvetica;
-   color: gray;
-   font-weight: 400;
-   font-size: 35px;
-   margin-left: 30px;
-   margin-top: 20px;
-}
-
 .chart text {
   text-anchor: end;
-}
-
-.axis {
-  font: 25px sans-serif;
 }
 
 .axis path,
@@ -26,7 +13,7 @@ text {
 	font-family: "Helvetica Neue", Helvetica;
 	color: black;
 	font-weight: 100;
-	font-size: 12px;
+	font-size: 9px;
 	fill: black;
 	text-anchor: end;
 	opacity: 1;
@@ -36,10 +23,9 @@ text {
 	font-family: "Helvetica Neue", Helvetica;
 	color: black;
 	font-weight: 100;
-	font-size: 12px;	
 	position: relative;
-	top: 210px;
-	left: 67px;
+	top: 37.5%;
+	left: 2%;
 }
 
 .bar text {
@@ -58,13 +44,38 @@ select {
 
 .chart {
 	position: absolute;
-	left: 75px;
-	top: 40px;
+	top: 5%;
+	left: 3%;
 }
 
-button {
+.chart2 {
 	position: absolute;
-	left: 1160px;
-	top: 125px;
-	font-family: "Helvetica Neue", Helvetica;
+	top: 44%;
+	left: 3%;
 }
+
+.btn-group {
+	position: relative;
+	left: 4.5%;
+	top: 700px;
+}
+
+button .btn {
+	font-family: "Helvetica Neue", Helvetica;
+	font-size: 6px;
+
+}
+
+.datamap {
+  position: absolute;
+  left: 15px;
+}
+
+#map {
+	position: absolute;
+	left: 46%;
+	top: -80px;
+}
+
+
+
