@@ -73,13 +73,13 @@ d3.csv("./data/" + norm + ".csv", type, function(error, data) {
  				.call(yAxis)
  				.append("text")
  				.attr("class", "title")
- 				.attr("x", 1100 / 2)             
+ 				.attr("x", 1100 / 1.45)             
 		        .attr("y", (height /  60))
 		        .attr("text-anchor", "middle")  
 		        .style("font-size", "26px") 
 		        .style("font-weight", "100")
 		        .style("font-family", "Helvetica Neue")
-		        .text("Argentina: Rural Population vs Years");
+		        .text("Argentina: Rural Population Percentage vs Years");
 
 		// Append the metric title for y-axis
 		chart.append("g")
@@ -148,14 +148,14 @@ function update(country) {
  				.call(yAxis)
  				.append("text")
  				.attr("class", "title")
- 				.attr("x", 1100 / 2)             
+ 				.attr("x", 1100 / 1.45)             
 		        .attr("y", (height /  60))
 		        .attr("text-anchor", "middle")  
 		        .style("font-size", "26px") 
 		        .style("font-weight", "100")
 		        .style("font-family", "Helvetica Neue")
 		        .text(country.charAt(0).toUpperCase() + country.slice(1) 
-		        	+ ": Rural Population vs Years");
+		        	+ ": Rural Population Percentage vs Years");
 
 		// update bars
 		var sel = chart.selectAll(".bar").data(data);
