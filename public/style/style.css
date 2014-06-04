@@ -46,3 +46,9 @@ text {
 .title {
 	padding-bottom: 20px;
 }
+
+select {
+	position: absolute;
+	left: 875px;
+	top: 490px;
+}
