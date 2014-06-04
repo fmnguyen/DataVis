@@ -96,7 +96,7 @@ d3.csv("./data/" + norm + ".csv", type, function(error, data) {
 });
 
 function update(country) {
-	var path = "../data/" + country + ".csv";
+	var path = "../data/" + country.toLowerCase() + ".csv";
 	d3.csv(path, type, function(error, data) {
 		chart.select(".y").remove();
 
