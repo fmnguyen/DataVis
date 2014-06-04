@@ -7,7 +7,7 @@ var x = d3.scale.linear()
 	.range([0, width]);
 
 var y = d3.scale.linear()
-	.domain([5,80])
+	.domain([5,90])
     .range([height, 0]);
 
 var xAxis = d3.svg.axis()
@@ -182,11 +182,9 @@ function type(d) {
 		return d;
 }
 
-$('select').on('change', function (d) {
-	var optionSelected = $("", this);
+$('button').on('click', function (d) {
 	var valueSelected = this.value;
 	update("" + valueSelected);
-
 });
 
 

@@ -37,6 +37,9 @@ text {
 	color: black;
 	font-weight: 100;
 	font-size: 12px;	
+	position: relative;
+	top: 175px;
+	left: 10px;
 }
 
 .bar text {
@@ -51,4 +54,16 @@ select {
 	position: absolute;
 	left: 875px;
 	top: 490px;
+}
+
+.chart {
+	position: absolute;
+	left: 15px;
+}
+
+button {
+	position: absolute;
+	left: 890px;
+	top: 85px;
+	font-family: "Helvetica Neue", Helvetica;
 }
