@@ -58,8 +58,25 @@ var chart2 = d3.select(".chart2")
 					.append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var norm = "Cambodia";
+var codes = new Object();
+	codes["Argentina"] = "ARG";
+	codes["Cambodia"] = "KHM";
+	codes["United States"] = "USA";
+	codes["Congo, Democratic Republic"] = "COD";
+	codes["Haiti"] = "HTI";
+	codes["Moldova"] = "MDA";
+	codes["Paraguay"] = "PRY";
+	codes["Iceland"] = "ISL";
+	codes["Japan"] = "JPN";
+	codes["Seychelles"] = "SYC";
 
+function get(key) {
+	return codes[key];
+}
+
+var map;
+
+var norm = "Argentina";	
 d3.csv("./data/" + norm.toLowerCase() + ".csv", type, function(error, data) {
 	if(error) 
 		console.log(error)
@@ -166,7 +183,7 @@ d3.csv("./data/" + norm.toLowerCase() + ".csv", type, function(error, data) {
 	}		
 });
 
-function update(country) {
+function updateA(country) {
 	var path = "../data/" + country.toLowerCase() + ".csv";
 	d3.csv(path, type, function(error, data) {
 		chart1.select(".y").remove();
@@ -236,9 +253,14 @@ function update(country) {
 		
 		// remove bars no longer present
 		sel.exit().remove();
+	})
+}
 
 /***************************** BREAK BETWEEN CHARTS ****************************/
 
+function updateB(country) {
+	var path = "../data/" + country.toLowerCase() + ".csv";
+	d3.csv(path, type, function(error, data) {
 		chart2.select(".y").remove();
 
 		chart2.selectAll("rect")
@@ -309,20 +331,25 @@ function update(country) {
 function type(d) {
 		d.rural = +d.rural;
 		d.urban = +d.urban;
+		d.infant_mortality = +d.infant_mortality;
 		return d;
 }
 
 $('button').on('click', function (d) {
 	var valueSelected = this.value;
-	update("" + valueSelected);
+	console.log($(this).parent().data("chart"));
+	//if($(this).parent().data("chart") == "a")
+		updateA("" + valueSelected);
+	//else 
+		updateB("" + valueSelected);
 });
 
 
-var footer = d3.select("body")
+/*var footer = d3.select("body")
 				.append("div")
 				.attr("class", "footer")
 				.text("@author: Francis Nguyen")
-				.style("font-size", "6px");
+				.style("font-size", "6px");*/
 
 
 /********************************/
@@ -335,30 +362,98 @@ window.onload = function(){
 	container.style.width = window.innerWidth / 2;
 	container.style.height = window.innerHeight / 1.2;
 
-	var map = new Datamap({
+	map = new Datamap({
 		element: document.getElementById("map"),
 		projection: 'mercator',
 		dataUrl: "../data/cambodia.csv",
 		fills: {
-            HIGH: 'rgb(140, 182, 173)',
-            LOW: 'rgb(181, 207, 137)',
-            MEDIUM: 'rgb(166, 198, 150)',
+            LOW: 'rgb(166, 198, 150)',
+            LOWMED:'rgb(154, 191, 161)',
+            MED: 'rgb(140, 182, 173)',
+            MEDHIGH: 'rgb(126, 174, 185)',
+            HIGH: 'rgb(119, 170, 192)',
             UNKNOWN: 'rgb(245,245,245)',
-            defaultFill: 'rgb(119, 170, 191)'
+            defaultFill: 'rgb(240,240,240)'
         },
         data: {
-            IRL: {
-                fillKey: 'LOW',
-                numberOfThings: 2002
+            KHM: {
+                fillKey: 'HIGH',
             },
             USA: {
-                fillKey: 'MEDIUM',
-                numberOfThings: 10381
-            }
+                fillKey: 'LOWMED',
+            },
+            ARG: {
+            	fillKey: "LOW"
+            },
+            COD: {
+            	fillKey: "MEDHIGH"
+            },
+            HTI: {
+            	fillKey: "MEDHIGH"
+            },
+            MDA: {
+            	fillKey:"MED"
+            },
+            PRY: {
+            	fillKey:"MED"
+            },
+            ISL: {
+            	fillKey:"LOW"
+            },
+            JPN: {
+            	fillKey:"MEDLOW"
+            },
+            SYC: {
+            	fillKey: "MED"
+            },
         }
 	});
 
 	map.legend();
+
+	$(".chartA").data("chart", "a");
+	$(".chartB").data("chart", "b");
+	console.log($(".chartA").data("chart"));
+
+}
+
+var current = 1994;
+
+/*window.setInterval(function(){
+	current++;
+	if(current > 2012)
+		current = 1994;
+	d3.csv("./data/master_dataset.csv", function(data) {
+		for(var i = 0; i < data.length; i++) {
+			var d = data[i];
+			var cont = get("" + d.country);
+			d.year = +d.year;
+			if(d.year == current) {
+				var type = returnKey(d.rural);
+				console.log(type)
+				map.updateChoropleth({
+					USA: { fillKey: "" + type}
+				});
+				console.log()
+			}
+		}
+	});
+}, 3000);*/
+
+
+
+function returnKey(val) {
+	val = +val;
+	if(val <= 20) 
+		return "LOW";
+	else if(val <= 40)
+		return "LOW-MED";
+	else if(val <= 60)
+		return "MED";
+	else if(val <= 80)
+		return "MED-HIGH";
+	else 
+		return "HIGH";
 }
 
 
