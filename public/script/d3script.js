@@ -337,19 +337,17 @@ function type(d) {
 
 $('button').on('click', function (d) {
 	var valueSelected = this.value;
-	console.log($(this).parent().data("chart"));
 	//if($(this).parent().data("chart") == "a")
 		updateA("" + valueSelected);
 	//else 
 		updateB("" + valueSelected);
 });
 
-
-/*var footer = d3.select("body")
+var footer = d3.select("body")
 				.append("div")
 				.attr("class", "footer")
 				.text("@author: Francis Nguyen")
-				.style("font-size", "6px");*/
+				.style("font-size", "6px");
 
 
 /********************************/
@@ -357,7 +355,6 @@ $('button').on('click', function (d) {
 /********************************/
 
 window.onload = function(){
-
 	var container = document.getElementById("map");
 	container.style.width = window.innerWidth / 2;
 	container.style.height = window.innerHeight / 1.2;
@@ -367,80 +364,86 @@ window.onload = function(){
 		projection: 'mercator',
 		dataUrl: "../data/cambodia.csv",
 		fills: {
-            LOW: 'rgb(166, 198, 150)',
-            LOWMED:'rgb(154, 191, 161)',
-            MED: 'rgb(140, 182, 173)',
-            MEDHIGH: 'rgb(126, 174, 185)',
-            HIGH: 'rgb(119, 170, 192)',
+            0: 'rgb(181, 207, 137)',
+            10: 'rgb(166, 198, 150)',
+            20:'rgb(154, 191, 161)',
+            30: 'rgb(150, 189, 164)',
+            40: 'rgb(147, 187, 167)',
+            50: 'rgb(140, 182, 173)',
+            60:'rgb(134, 179, 178)',
+            70: 'rgb(126, 174, 185)',
+            80: 'rgb(122, 172, 189)',
+            90:'rgb(119, 170, 191)',
+            100: 'rgb(119, 170, 192)',
+
             UNKNOWN: 'rgb(245,245,245)',
             defaultFill: 'rgb(240,240,240)'
         },
         data: {
             KHM: {
-                fillKey: 'HIGH',
+                fillKey: '90',
             },
             USA: {
-                fillKey: 'LOWMED',
+                fillKey: '20',
             },
             ARG: {
-            	fillKey: "LOW"
+            	fillKey: "0"
             },
             COD: {
-            	fillKey: "MEDHIGH"
+            	fillKey: "70"
             },
             HTI: {
-            	fillKey: "MEDHIGH"
+            	fillKey: "70"
             },
             MDA: {
-            	fillKey:"MED"
+            	fillKey:"50"
             },
             PRY: {
-            	fillKey:"MED"
+            	fillKey:"50"
             },
             ISL: {
-            	fillKey:"LOW"
+            	fillKey:"0"
             },
             JPN: {
-            	fillKey:"MEDLOW"
+            	fillKey:"20"
             },
             SYC: {
-            	fillKey: "MED"
-            },
+            	fillKey: "50"
+            }
         }
 	});
-
+	
+	d3.select("body").append("text")
+		.attr("class", "year")
+		.text("1994")
+		.attr("font-size", "30px");
+	
 	map.legend();
 
+	console.log(map.options.data["ARG"].fillKey)
 	$(".chartA").data("chart", "a");
 	$(".chartB").data("chart", "b");
-	console.log($(".chartA").data("chart"));
 
 }
 
 var current = 1994;
 
-/*window.setInterval(function(){
+window.setInterval(function(){
 	current++;
 	if(current > 2012)
 		current = 1994;
+	d3.select(".year").text(current);
 	d3.csv("./data/master_dataset.csv", function(data) {
 		for(var i = 0; i < data.length; i++) {
 			var d = data[i];
-			var cont = get("" + d.country);
+			var cont = get(d.country);
 			d.year = +d.year;
-			if(d.year == current) {
-				var type = returnKey(d.rural);
-				console.log(type)
-				map.updateChoropleth({
-					USA: { fillKey: "" + type}
-				});
-				console.log()
+			if(d.year == current && cont != "SYC") {
+
 			}
 		}
 	});
-}, 3000);*/
-
-
+}, 4000);
 
 function returnKey(val) {
 	val = +val;
@@ -455,13 +458,6 @@ function returnKey(val) {
 	else 
 		return "HIGH";
 }
-
-
-
-
-
-
-
 
 
 

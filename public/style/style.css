@@ -24,8 +24,8 @@ text {
 	color: black;
 	font-weight: 100;
 	position: relative;
-	top: 37.5%;
-	left: 2%;
+	top: 77%;
+	left: 3%;
 }
 
 .bar text {
@@ -80,7 +80,7 @@ button .btn {
 
 .datamaps-legend {
 	position: absolute;
-	left: 35%;
+	left: 15%;
 	top: 45px;
 }
 
@@ -95,4 +95,9 @@ button .btn {
 	left: -310px;
 }
 
-
+.year {
+	font-size: 40px;
+	position: relative;
+	left: 91%;
+	top: 605px;
+}
