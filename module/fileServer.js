@@ -23,7 +23,7 @@ function FileServer(port) {
         });
     });
 
-    return server.listen(port || 1234);
+    return server.listen(port || 8080);
 }
 
 module.exports = FileServer;
