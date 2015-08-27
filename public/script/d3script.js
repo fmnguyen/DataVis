@@ -83,90 +83,89 @@ d3.csv("./data/" + norm.toLowerCase() + ".csv", type, function(error, data) {
 	else {
 		console.log(data)
 	
-		
-		var count = 1;
-		var bar = chart1.selectAll("g")
-						.attr("class", "data")
-						.data(data)
-						.enter().append("g")
-					.selectAll(".bar")
-  						.data(data)
-					.enter().append("rect")
-						.attr("class", "bar")
-					    .attr("x", function(d) { return years(d.year) + 22; })
-					    .attr("y", function(d) { return population(Math.round(d.rural * 100) / 100); })
-					    .attr("height", function(d) { return height - population(Math.round(d.rural * 100) / 100); })
-					    .attr("width", 15)
-					    .attr("transform", "translate(0, -0.55)")
-					    .attr("fill", function(d) { count+=2; return "rgb(53, 214, " + ((90 + 3 * count) % 255) + ")"});
+	var count = 1;
+	var bar = chart1.selectAll("g")
+		.attr("class", "data")
+		.data(data)
+		.enter().append("g")
+		.selectAll(".bar")
+			.data(data)
+		.enter().append("rect")
+		.attr("class", "bar")
+		    .attr("x", function(d) { return years(d.year) + 22; })
+		    .attr("y", function(d) { return population(Math.round(d.rural * 100) / 100); })
+		    .attr("height", function(d) { return height - population(Math.round(d.rural * 100) / 100); })
+		    .attr("width", 15)
+		    .attr("transform", "translate(0, -0.55)")
+		    .attr("fill", function(d) { count+=2; return "rgb(53, 214, " + ((90 + 3 * count) % 255) + ")"});
 
-		chart1.append("g")
- 				.attr("class", "x axis")
-  				.attr("transform", "translate(30," + height + ")")
-  				.call(xAxis);
+	chart1.append("g")
+		.attr("class", "x axis")
+		.attr("transform", "translate(30," + height + ")")
+		.call(xAxis);
 
-  		// Add title to graph
-  		chart1.append("g")
-  				.attr("class", "y axis")
- 				.call(yAxis)
- 				.append("text")
- 				.attr("class", "title")
- 				.attr("x", width + 35)             
-		        .attr("y", (height /  60))
-		        .attr("text-anchor", "middle")  
-		        .style("font-size", "14px") 
-		        .style("font-weight", "100")
-		        .style("font-family", "Helvetica Neue")
-		        .text(norm + ": Rural Population Percentage vs Years");
-
-		// Append the metric title for y-axis
+		// Add title to graph
 		chart1.append("g")
 			.attr("class", "y axis")
 			.call(yAxis)
 				.append("text")
-			.attr("transform", "rotate(-90)")
-			.attr("y", 15)
-			.attr("dy", "-4.5em")
-			.style("text-anchor", "end")
-			.style("font-size", "10px")
-			.text("Rural Population (% of Total Population)");
+			.attr("class", "title")
+			.attr("x", width + 35)             
+	        .attr("y", (height /  60))
+	        .attr("text-anchor", "middle")  
+	        .style("font-size", "14px") 
+	        .style("font-weight", "100")
+	        .style("font-family", "Helvetica Neue")
+	        .text(norm + ": Rural Population Percentage vs Years");
+
+	// Append the metric title for y-axis
+	chart1.append("g")
+		.attr("class", "y axis")
+		.call(yAxis)
+			.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 15)
+		.attr("dy", "-4.5em")
+		.style("text-anchor", "end")
+		.style("font-size", "10px")
+		.text("Rural Population (% of Total Population)");
 
 /***************************** BREAK BETWEEN CHARTS ****************************/
 
 		count = 1;
 		bar = chart2.selectAll("g")
-						.attr("class", "data")
-						.data(data)
-						.enter().append("g")
-					.selectAll(".bar")
-  						.data(data)
-					.enter().append("rect")
-						.attr("class", "bar")
-					    .attr("x", function(d) { return years(d.year) + 22; })
-					    .attr("y", function(d) { return infant(Math.round(d.infant_mortality * 100) / 100); })
-					    .attr("height", function(d) { return height - infant(Math.round(d.infant_mortality * 100) / 100); })
-					    .attr("width", 15)
-					    .attr("transform", "translate(0, -0.55)")
-					    .attr("fill", function(d) { count+=2; return "rgb(254, 185, " + ((90 + 3 * count) % 255) + ")"});
+				.attr("class", "data")
+				.data(data)
+				.enter().append("g")
+			.selectAll(".bar")
+					.data(data)
+			.enter().append("rect")
+				.attr("class", "bar")
+			    .attr("x", function(d) { return years(d.year) + 22; })
+			    .attr("y", function(d) { return infant(Math.round(d.infant_mortality * 100) / 100); })
+			    .attr("height", function(d) { return height - infant(Math.round(d.infant_mortality * 100) / 100); })
+			    .attr("width", 15)
+			    .attr("transform", "translate(0, -0.55)")
+			    .attr("fill", function(d) { count+=2; return "rgb(254, 185, " + ((90 + 3 * count) % 255) + ")"});
 
 		chart2.append("g")
- 				.attr("class", "x axis")
-  				.attr("transform", "translate(30," + height + ")")
-  				.call(xAxis);
+			.attr("class", "x axis")
+			.attr("transform", "translate(30," + height + ")")
+			.call(xAxis);
 
   		// Add title to graph
   		chart2.append("g")
-  				.attr("class", "y axis")
- 				.call(infantAxis)
- 				.append("text")
- 				.attr("class", "title")
- 				.attr("x", width + 35)             
-		        .attr("y", (height /  60))
-		        .attr("text-anchor", "middle")  
-		        .style("font-size", "14px") 
-		        .style("font-weight", "100")
-		        .style("font-family", "Helvetica Neue")
-		        .text(norm + ": Infant Mortality Rate vs Years");
+			.attr("class", "y axis")
+			.call(infantAxis)
+			.append("text")
+			.attr("class", "title")
+			.attr("x", width + 35)             
+	        .attr("y", (height /  60))
+	        .attr("text-anchor", "middle")  
+	        .style("font-size", "14px") 
+	        .style("font-weight", "100")
+	        .style("font-family", "Helvetica Neue")
+	        .text(norm + ": Infant Mortality Rate vs Years");
 
 		// Append the metric title for y-axis
 		chart2.append("g")
@@ -187,9 +186,6 @@ function updateA(country) {
 	var path = "../data/" + country.toLowerCase() + ".csv";
 	d3.csv(path, type, function(error, data) {
 		chart1.select(".y").remove();
-
-	  	//y.domain([d3.min(data, function(d) {return d.rural;}), 
-	  	//		d3.mayears(data, function(d) {return d.rural;})]);
 		
 		chart1.selectAll("rect")
 			.style("opacity", "0.8");
@@ -439,28 +435,9 @@ window.setInterval(function(){
 			var cont = get(d.country);
 			d.year = +d.year;
 			if(d.year == current && cont != "SYC") {
-
 			}
 		}
 	});
 }, 4000);
-
-function returnKey(val) {
-	val = +val;
-	if(val <= 20) 
-		return "LOW";
-	else if(val <= 40)
-		return "LOW-MED";
-	else if(val <= 60)
-		return "MED";
-	else if(val <= 80)
-		return "MED-HIGH";
-	else 
-		return "HIGH";
-}
-
-
-
-
 
 
